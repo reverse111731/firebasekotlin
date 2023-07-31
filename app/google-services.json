@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "683940368266",
+    "project_id": "fir-realtimekotlin-c708c",
+    "storage_bucket": "fir-realtimekotlin-c708c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683940368266:android:8a5e91b9be52dce33b4273",
+        "android_client_info": {
+          "package_name": "com.example.firebasekotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683940368266-rdok7qhsnavll2qo5p9nj1uujkoqql3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzNJlFCrigQ2PgjHTu5izxZQv9sV1aKRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683940368266-rdok7qhsnavll2qo5p9nj1uujkoqql3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
