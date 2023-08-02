@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firebasekotlin.R
+import com.example.firebasekotlin.databinding.ActivityEmployeeDetailsBinding
 import com.example.firebasekotlin.model.EmployeeModel
 import com.google.firebase.database.FirebaseDatabase
 
@@ -17,25 +18,27 @@ class EmployeeDetailsActivity: AppCompatActivity() {
     private lateinit var tvEmpName: TextView
     private lateinit var tvEmpAge: TextView
     private lateinit var tvEmpSalary: TextView
-    private lateinit var btnUpdate: Button
-    private lateinit var btnDelete: Button
+
+    private lateinit var binding: ActivityEmployeeDetailsBinding
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_employee_details)
+        binding = ActivityEmployeeDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initView()
         setValuesToViews()
 
-        btnUpdate.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
             openUpdateDialog(
                 intent.getStringExtra("empId").toString(),
                 intent.getStringExtra("empName").toString()
             )
         }
 
-        btnDelete.setOnClickListener {
+        binding.btnDelete.setOnClickListener {
             deleteRecord(
                 intent.getStringExtra("empId").toString()
             )
@@ -117,13 +120,11 @@ class EmployeeDetailsActivity: AppCompatActivity() {
 
 
     private fun initView() {
-        tvEmpId = findViewById(R.id.tvEmpId)
-        tvEmpName = findViewById(R.id.tvEmpName)
-        tvEmpAge = findViewById(R.id.tvEmpAge)
-        tvEmpSalary = findViewById(R.id.tvEmpSalary)
+        tvEmpId = binding.tvEmpId
+        tvEmpName = binding.tvEmpName
+        tvEmpAge = binding.tvEmpAge
+        tvEmpSalary = binding.tvEmpSalary
 
-        btnUpdate = findViewById(R.id.btnUpdate)
-        btnDelete = findViewById(R.id.btnDelete)
     }
 
     private fun setValuesToViews() {

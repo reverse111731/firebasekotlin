@@ -2,6 +2,7 @@ package com.example.firebasekotlin.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasekotlin.R
 import com.example.firebasekotlin.adopter.EmpAdapter
+import com.example.firebasekotlin.databinding.ActivityFetchingBinding
 import com.example.firebasekotlin.model.EmployeeModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -22,17 +24,22 @@ class FetchingActivity : AppCompatActivity() {
     private lateinit var tvLoadingData: TextView
     private lateinit var empList: ArrayList<EmployeeModel>
 
+    private lateinit var binding: ActivityFetchingBinding
+
     private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fetching)
+        binding = ActivityFetchingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        empRecyclerView = findViewById(R.id.rvEmp)
+        empRecyclerView = binding.rvEmp
         empRecyclerView.layoutManager = LinearLayoutManager(this)
         empRecyclerView.setHasFixedSize(true)
-        tvLoadingData = findViewById(R.id.tvLoadingData)
 
+        tvLoadingData = binding.tvLoadingData
+
+        // Initialize empty ArrayList
         empList = arrayListOf()
 
         getEmployeesData()
@@ -47,8 +54,10 @@ class FetchingActivity : AppCompatActivity() {
         dbRef = FirebaseDatabase.getInstance().getReference("Employees")
 
         dbRef.addValueEventListener(object : ValueEventListener {
+
             override fun onDataChange(snapshot: DataSnapshot) {
-                empList.clear()
+                empList.clear() //clear list then re-insert
+
                 if (snapshot.exists()){
                     for (empSnap in snapshot.children){
                         val empData = empSnap.getValue(EmployeeModel::class.java)
@@ -56,6 +65,8 @@ class FetchingActivity : AppCompatActivity() {
                     }
                     val mAdapter = EmpAdapter(empList)
                     empRecyclerView.adapter = mAdapter
+
+                    Log.v("FetchData", empList.toString())
 
                     mAdapter.setOnItemClickListener(object : EmpAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
@@ -78,7 +89,7 @@ class FetchingActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("FetchingData", "DB Error")
             }
 
 
